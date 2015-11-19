@@ -23,7 +23,7 @@ class UdacityClient : NSObject {
             ]
         ]
         
-        restClient.doPOST(Constants.BaseURL, method: "session", parameters: [String:AnyObject](), jsonBody: authBody) { (result, error) -> Void in
+        restClient.doPOST(Constants.BaseURL, method: "session", parameters: [String:AnyObject](), jsonBody: authBody, headers: nil) { (result, error) -> Void in
             print(result)
             
             if let error = error {

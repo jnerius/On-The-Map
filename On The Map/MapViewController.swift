@@ -31,7 +31,7 @@ class MapViewController: UIViewController {
         }
         
         dispatch_async(dispatch_get_main_queue(), {
-            self.addMapAnnotationsFromUserLocations(SharedData.studentLocations(false))
+            self.addMapAnnotationsFromUserLocations(SharedData.studentLocations(true))
         })
 
     }

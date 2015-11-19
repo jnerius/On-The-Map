@@ -18,12 +18,12 @@ struct ParseConstants {
 class ParseClient : NSObject {
     let restClient = RESTClient()
     
+    let headers = [
+        "X-Parse-Application-Id": ParseConstants.ParseApplicationId,
+        "X-Parse-REST-API-Key":   ParseConstants.ParseRestApiKey
+    ]
+    
     func getStudentLocations(limit: Int?, skip: Int?, order: String?, completionHandler: (result: [StudentInformation]?, error: NSError?) -> Void) {
-        let headers = [
-            "X-Parse-Application-Id": ParseConstants.ParseApplicationId,
-            "X-Parse-REST-API-Key":   ParseConstants.ParseRestApiKey
-        ]
-        
         restClient.doGET(ParseConstants.BaseURL, method: ParseConstants.MethodStudentLocation, parameters: nil, headers: headers) { (result, error) -> Void in
             if let results = result["results"] as? [[String:AnyObject]] {
                 let userLocations = StudentInformation.userLocationsFromResults(results)
@@ -33,6 +33,26 @@ class ParseClient : NSObject {
                 
                 completionHandler(result: sortedUserLocations, error: nil)
             }
+        }
+    }
+    
+    func createStudentLocation(student: StudentInformation, completionHandler: (result: AnyObject?, error: NSError?) -> Void) {
+        print("createStudentLocation student -> \(student)")
+        let body: [String:AnyObject] = [
+            "uniqueKey": student.uniqueKey,
+            "firstName": student.firstName,
+            "lastName":  student.lastName,
+            "latitude":  student.latitude,
+            "longitude": student.longitude,
+            "mapString": student.mapString,
+            "mediaURL":  student.mediaURL
+        ]
+        
+        restClient.doPOST(ParseConstants.BaseURL, method: ParseConstants.MethodStudentLocation, parameters: [String:AnyObject](), jsonBody: body, headers: headers) { (result, error) -> Void in
+            
+            print("In doPOST in createStudentLocation \(result)")
+            
+            completionHandler(result: result, error: error)
         }
     }
     

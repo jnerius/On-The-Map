@@ -18,7 +18,7 @@ class RESTClient : NSObject {
     
     // Borrowing from method used for Movie Manager App.
     // Generic method to facilitate POST HTTP Requests.
-    func doPOST(urlString: String, method: String, parameters: [String : AnyObject], jsonBody: [String:AnyObject], completionHandler: (result: AnyObject?, error: NSError?) -> Void) -> NSURLSessionDataTask {
+    func doPOST(urlString: String, method: String, parameters: [String : AnyObject]?, jsonBody: [String:AnyObject], headers: [String:String]?, completionHandler: (result: AnyObject?, error: NSError?) -> Void) -> NSURLSessionDataTask {
         var mutableParameters = parameters
         
         /* 2/3. Build the URL and configure the request */
@@ -29,6 +29,18 @@ class RESTClient : NSObject {
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         do {
             request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(jsonBody, options: .PrettyPrinted)
+            // NSString(data: request.HTTPBody!, encoding: NSUTF8StringEncoding)
+            print("doPOST: request.HTTPBody -> \(NSString(data: request.HTTPBody!, encoding: NSUTF8StringEncoding))")
+        }
+        
+        if let headers = headers {
+            print("headers = \(headers)")
+            
+            for header in headers {
+                print("header.0 = \(header.0)")
+                print("header.1 = \(header.1)")
+                request.addValue(header.1, forHTTPHeaderField: header.0)
+            }
         }
         
         /* 4. Make the request */
@@ -62,8 +74,6 @@ class RESTClient : NSObject {
                 print("No data was returned by the request!")
                 return
             }
-            
-            print(data)
             
             /* 5/6. Parse the data and use the data (happens in completion handler) */
             // FIXME

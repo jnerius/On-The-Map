@@ -67,6 +67,9 @@ class LoginViewController: UIViewController {
         // FIXME - shortcut the login process for now
         let controller = self.storyboard!.instantiateViewControllerWithIdentifier("OnTheMapTabBarController") as! UITabBarController
         self.presentViewController(controller, animated: true, completion: nil)
+        SharedData.currentStudent.firstName = "Josh"
+        SharedData.currentStudent.lastName = "Nerius"
+        SharedData.currentStudent.uniqueKey = "u998045"
         
         /*
         udacityClient.authenticate(username, password: password) { (result, error) -> Void in

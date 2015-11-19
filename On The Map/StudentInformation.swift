@@ -20,6 +20,8 @@ struct StudentInformation {
     var createdAt: NSDate = NSDate()
     var updatedAt: NSDate = NSDate()
     
+    init() {}
+    
     init(dictionary: [String:AnyObject]) {
         if let jFirstName = dictionary["firstName"] as? String { firstName = jFirstName }
         if let jLastName  = dictionary["lastName"]  as? String { lastName  = jLastName }

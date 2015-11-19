@@ -12,6 +12,8 @@
         <mutableArray key="Roboto-Regular.ttf">
             <string>Roboto-Regular</string>
             <string>Roboto-Regular</string>
+            <string>Roboto-Regular</string>
+            <string>Roboto-Regular</string>
         </mutableArray>
         <mutableArray key="Roboto-Thin.ttf">
             <string>Roboto-Thin</string>
@@ -283,8 +285,13 @@
                                         <rect key="frame" x="0.0" y="416" width="600" height="120"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qN5-8t-a4w">
-                                                <rect key="frame" x="245" y="45" width="111" height="30"/>
+                                                <rect key="frame" x="220" y="45" width="161" height="30"/>
                                                 <animations/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="161" id="8Kw-4H-Q29"/>
+                                                    <constraint firstAttribute="height" constant="30" id="hXO-tx-JTx"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="15"/>
                                                 <state key="normal" title="Find on the Map"/>
                                                 <connections>
                                                     <action selector="findTouch:" destination="0LE-w6-fPc" eventType="touchUpInside" id="LSW-Uo-AYF"/>
@@ -316,7 +323,7 @@
                                     <constraint firstItem="fXp-Kt-6jY" firstAttribute="centerX" secondItem="FyF-Si-G6w" secondAttribute="centerX" id="stn-mw-gNE"/>
                                 </constraints>
                             </view>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iVn-dc-R2K">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iVn-dc-R2K">
                                 <rect key="frame" x="0.0" y="60" width="600" height="540"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fAq-Ze-krw">
@@ -345,13 +352,32 @@
                                             <constraint firstAttribute="height" constant="381" id="ysU-Oi-snr"/>
                                         </constraints>
                                     </mapView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SDy-rB-Lhg">
+                                    <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SDy-rB-Lhg">
                                         <rect key="frame" x="0.0" y="420" width="600" height="120"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gDe-9B-gZc">
+                                                <rect key="frame" x="265" y="45" width="70" height="30"/>
+                                                <animations/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="jjz-Lh-6Ln"/>
+                                                    <constraint firstAttribute="width" constant="70" id="zQh-C6-jFY"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="15"/>
+                                                <state key="normal" title="Submit">
+                                                    <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="submitTouch:" destination="0LE-w6-fPc" eventType="touchUpInside" id="8ao-da-y5r"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
                                         <animations/>
                                         <color key="backgroundColor" name="alternateSelectedControlTextColor" catalog="System" colorSpace="catalog"/>
                                         <color key="tintColor" white="1" alpha="0.35528017241379312" colorSpace="calibratedWhite"/>
                                         <constraints>
+                                            <constraint firstItem="gDe-9B-gZc" firstAttribute="centerY" secondItem="SDy-rB-Lhg" secondAttribute="centerY" id="WIX-iZ-tOi"/>
                                             <constraint firstAttribute="height" constant="120" id="c31-J0-Rwq"/>
+                                            <constraint firstItem="gDe-9B-gZc" firstAttribute="centerX" secondItem="SDy-rB-Lhg" secondAttribute="centerX" id="cpV-aI-tkf"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -399,7 +425,12 @@
                         <outlet property="enterLinkSubview" destination="fAq-Ze-krw" id="Wmu-zX-EEO"/>
                         <outlet property="enterLocationView" destination="FyF-Si-G6w" id="IPJ-hr-IgB"/>
                         <outlet property="enterURLView" destination="iVn-dc-R2K" id="iGn-vy-7VT"/>
+                        <outlet property="findButton" destination="qN5-8t-a4w" id="niT-O9-Hfx"/>
                         <outlet property="locationTextField" destination="9O5-OL-ItO" id="qod-KJ-T22"/>
+                        <outlet property="mapView" destination="DQe-mV-ubS" id="gTw-Y5-JvD"/>
+                        <outlet property="submitButton" destination="gDe-9B-gZc" id="Mvi-lT-laa"/>
+                        <outlet property="submitContainer" destination="SDy-rB-Lhg" id="iXp-00-Qhu"/>
+                        <outlet property="urlTextField" destination="jed-wn-ijn" id="pQs-wP-kEe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Z9x-uy-8XX" userLabel="First Responder" sceneMemberID="firstResponder"/>

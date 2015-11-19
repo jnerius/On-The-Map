@@ -7,8 +7,10 @@
 //
 
 import Foundation
+import MapKit
 
 class SharedData {
+    static var currentStudent   = StudentInformation()
     static var studentLocations = [StudentInformation]()
     
     static func studentLocations(refresh: Bool) -> [StudentInformation] {
