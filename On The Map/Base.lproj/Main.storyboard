@@ -142,7 +142,11 @@
                     <navigationItem key="navigationItem" title="On The Map" id="4cx-Pw-n0A">
                         <barButtonItem key="leftBarButtonItem" title="Logout" id="PSu-NE-9T7"/>
                         <rightBarButtonItems>
-                            <barButtonItem systemItem="refresh" id="VVq-sQ-NTU"/>
+                            <barButtonItem systemItem="refresh" id="VVq-sQ-NTU">
+                                <connections>
+                                    <action selector="refreshTouch:" destination="EKE-jK-kLY" id="IGK-Zv-aH1"/>
+                                </connections>
+                            </barButtonItem>
                             <barButtonItem image="pin-icon" id="m1y-Tm-Ws4">
                                 <connections>
                                     <segue destination="0LE-w6-fPc" kind="presentation" id="sTE-JI-PRT"/>
@@ -177,20 +181,42 @@
                                     <outlet property="delegate" destination="D6Q-Ub-XHt" id="QQr-MK-Sd0"/>
                                 </connections>
                             </mapView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MjB-eu-CMK">
+                                <rect key="frame" x="0.0" y="64" width="600" height="487"/>
+                                <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="zrq-y5-rO8">
+                                        <rect key="frame" x="290" y="226" width="20" height="20"/>
+                                        <animations/>
+                                    </activityIndicatorView>
+                                </subviews>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstItem="zrq-y5-rO8" firstAttribute="centerY" secondItem="MjB-eu-CMK" secondAttribute="centerY" id="HTo-61-Xis"/>
+                                    <constraint firstItem="zrq-y5-rO8" firstAttribute="centerX" secondItem="MjB-eu-CMK" secondAttribute="centerX" id="PeE-H1-MSx"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="MjB-eu-CMK" firstAttribute="leading" secondItem="Gxf-zt-mhZ" secondAttribute="leadingMargin" constant="-20" id="B4N-4y-GM6"/>
                             <constraint firstItem="ewR-4F-gGm" firstAttribute="leading" secondItem="Gxf-zt-mhZ" secondAttribute="leadingMargin" constant="-20" id="F2i-kr-pxw"/>
                             <constraint firstItem="ewR-4F-gGm" firstAttribute="bottom" secondItem="Gxf-zt-mhZ" secondAttribute="bottomMargin" id="Qdq-Co-GJ9"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="MjB-eu-CMK" secondAttribute="trailing" constant="-20" id="UXC-dz-jZd"/>
+                            <constraint firstItem="x55-3c-w5x" firstAttribute="top" secondItem="MjB-eu-CMK" secondAttribute="bottom" id="dCp-C0-1je"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ewR-4F-gGm" secondAttribute="trailing" constant="-20" id="hKe-Hc-MNl"/>
                             <constraint firstItem="ewR-4F-gGm" firstAttribute="top" secondItem="Gxf-zt-mhZ" secondAttribute="topMargin" id="i0b-eE-5ls"/>
+                            <constraint firstItem="MjB-eu-CMK" firstAttribute="top" secondItem="sOX-9a-giL" secondAttribute="bottom" id="ubS-Pq-ULU"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="On The Map" id="kQv-cb-C1l">
                         <barButtonItem key="leftBarButtonItem" title="Logout" id="4NI-44-1Mo"/>
                         <rightBarButtonItems>
-                            <barButtonItem systemItem="refresh" id="0Vc-Y0-2pt"/>
+                            <barButtonItem systemItem="refresh" id="0Vc-Y0-2pt">
+                                <connections>
+                                    <action selector="reloadTouch:" destination="D6Q-Ub-XHt" id="wQy-5Z-OCg"/>
+                                </connections>
+                            </barButtonItem>
                             <barButtonItem image="pin-icon" id="2Xi-ce-eti">
                                 <connections>
                                     <action selector="pinButtonPressed:" destination="D6Q-Ub-XHt" id="AQE-kG-alt"/>
@@ -201,6 +227,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="mapView" destination="ewR-4F-gGm" id="Gkl-cf-BpQ"/>
+                        <outlet property="overlayLoadingView" destination="MjB-eu-CMK" id="LrQ-D4-YCf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sC6-WH-aGR" userLabel="First Responder" sceneMemberID="firstResponder"/>

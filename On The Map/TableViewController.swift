@@ -19,13 +19,7 @@ class TableViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         // If there is no student information, retrieve it now.
-        if SharedData.studentLocations.count == 0 {
-            self.parseClient.getStudentLocations(nil, skip: nil, order: nil) { (studentLocations, error) -> Void in
-                if let locations = studentLocations {
-                    SharedData.studentLocations = locations
-                }
-            }
-        }
+        SharedData.studentLocations(true)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -41,6 +35,8 @@ class TableViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    @IBAction func refreshTouch(sender: AnyObject) {
+    }
 
 }
 

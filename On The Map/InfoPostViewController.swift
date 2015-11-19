@@ -41,21 +41,27 @@ class InfoPostViewController : UIViewController {
         self.mapView.scrollEnabled = false
         self.mapView.userInteractionEnabled = false
         
-        self.defaultColor = self.view.backgroundColor
         self.locationTextField.delegate = self
         
         initializeUI()
     }
     
     func initializeUI() {
-        setUIState(.EnterLocation)
-        configureRoundedButton(self.findButton)
-        configureRoundedButton(self.submitButton)
+        // Make our buttons nice and round
+        self.configureRoundedButton(self.findButton)
+        self.configureRoundedButton(self.submitButton)
+        
+        // Determine the view's default background color for later reuse
+        self.defaultColor = self.view.backgroundColor
         
         // Configure transparency on submit container without impacting all child views
         submitContainer.backgroundColor = UIColor.clearColor().colorWithAlphaComponent(0.2)
+        
+        // Set the UI state to show Location Entry View
+        setUIState(.EnterLocation)
     }
     
+    // Make a UIButton rounded and white
     func configureRoundedButton(button: UIButton) {
         button.backgroundColor = UIColor.whiteColor()
         button.alpha = 1
@@ -108,10 +114,13 @@ class InfoPostViewController : UIViewController {
         if let url = self.urlTextField.text  {
             if url != PLACEHOLDER_URL_TEXT {
                 SharedData.currentStudent.mediaURL = url
+                SharedData.currentStudent.mapString = self.locationTextField.text!
                 
                 self.parseClient.createStudentLocation(SharedData.currentStudent, completionHandler: { (result, error) -> Void in
                     if (error == nil) {
                         self.dismissViewControllerAnimated(true, completion: nil)
+                    } else {
+                        self.showMessage("Error while attempting to create Student Location")
                     }
                 })
             } else {

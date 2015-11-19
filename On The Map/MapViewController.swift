@@ -10,30 +10,60 @@ import UIKit
 import MapKit
 
 class MapViewController: UIViewController {
-    let parseClient = ParseClient.sharedInstance()
-    
+    @IBOutlet weak var overlayLoadingView: UIView!
     @IBOutlet weak var mapView: MKMapView!
+    
+    let parseClient = ParseClient.sharedInstance()
+    var mapRenderingInProgress = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.configureOverlayLoadingView()
+        self.loadStudentLocations()
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        // If there is no student information, retrieve it now.
-        if SharedData.studentLocations.count == 0 {
-            self.parseClient.getStudentLocations(nil, skip: nil, order: nil) { (studentLocations, error) -> Void in
-                if let locations = studentLocations {
-                    SharedData.studentLocations = locations
-                }
+        reloadStudentLocations()
+    }
+    
+    @IBAction func reloadTouch(sender: AnyObject) {
+        reloadStudentLocations()
+    }
+    
+    func loadStudentLocations() {
+        self.enableLoadingOverlay()
+        ParseClient.sharedInstance().getStudentLocations(nil, skip: nil, order: nil) { (studentLocations, error) -> Void in
+            if let locations = studentLocations {
+                SharedData.studentLocations = locations
+                
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.addMapAnnotationsFromUserLocations(locations)
+                    self.disableLoadingOverlay()
+                })
             }
         }
-        
-        dispatch_async(dispatch_get_main_queue(), {
-            self.addMapAnnotationsFromUserLocations(SharedData.studentLocations(true))
-        })
-
+    }
+    
+    func reloadStudentLocations() {
+        self.mapView.removeAnnotations(self.mapView.annotations)
+        loadStudentLocations()
+    }
+    
+    func configureOverlayLoadingView() {
+        self.overlayLoadingView.backgroundColor = UIColor.grayColor().colorWithAlphaComponent(0.5)
+    }
+    
+    func enableLoadingOverlay() {
+        self.overlayLoadingView.hidden = false
+    }
+    
+    func disableLoadingOverlay() {
+        if (!self.mapRenderingInProgress) {
+            self.overlayLoadingView.hidden = true
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -93,5 +123,14 @@ extension MapViewController: MKMapViewDelegate {
                 app.openURL(NSURL(string: toOpen)!)
             }
         }
+    }
+    
+    func mapViewWillStartRenderingMap(mapView: MKMapView) {
+        self.mapRenderingInProgress = true
+    }
+    
+    func mapViewDidFinishRenderingMap(mapView: MKMapView, fullyRendered: Bool) {
+        self.mapRenderingInProgress = false
+        self.disableLoadingOverlay()
     }
 }
