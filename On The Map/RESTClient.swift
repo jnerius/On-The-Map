@@ -65,8 +65,7 @@ class RESTClient : NSObject {
                 return
             }
             
-            /* 5/6. Parse the data and use the data (happens in completion handler) */
-            // FIXME
+            // If this is a Udacity URL, skip chars, otherwise do not skip any
             if urlString == UdacityConstants.BaseURL {
                 self.parseJSONWithCompletionHandler(data, skipChars: 5, completionHandler: completionHandler)
             } else {
@@ -74,9 +73,7 @@ class RESTClient : NSObject {
             }
         }
         
-        /* 7. Start the request */
         task.resume()
-        
         return task
     }
     
