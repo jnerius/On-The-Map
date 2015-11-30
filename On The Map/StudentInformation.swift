@@ -17,8 +17,8 @@ struct StudentInformation {
     var mediaURL:  String = ""
     var objectId:  String = ""
     var uniqueKey: String = ""
-    var createdAt: NSDate = NSDate()
-    var updatedAt: NSDate = NSDate()
+    var createdAt: String = ""
+    var updatedAt: String = ""
     
     init() {}
     
@@ -30,8 +30,8 @@ struct StudentInformation {
         if let jMediaURL  = dictionary["mediaURL"]  as? String { mediaURL  = jMediaURL }
         if let jObjectId  = dictionary["objectId"]  as? String { objectId  = jObjectId }
         if let jUniqueKey = dictionary["uniqueKey"] as? String { uniqueKey = jUniqueKey }
-        if let jCreatedAt = dictionary["createdAt"] as? NSDate { createdAt = jCreatedAt }
-        if let jUpdatedAt = dictionary["updatedAt"] as? NSDate { updatedAt = jUpdatedAt }
+        if let jCreatedAt = dictionary["createdAt"] as? String { createdAt = jCreatedAt }
+        if let jUpdatedAt = dictionary["updatedAt"] as? String { updatedAt = jUpdatedAt }
     }
     
     static func userLocationsFromResults(results: [[String:AnyObject]]) -> [StudentInformation] {

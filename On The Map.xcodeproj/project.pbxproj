@@ -10,6 +10,9 @@
 		0310F6F61BE868F700244B14 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0310F6F51BE868F700244B14 /* LoginViewController.swift */; };
 		0310F6FA1BE8793700244B14 /* InfoPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0310F6F91BE8793700244B14 /* InfoPostViewController.swift */; };
 		0310F6FE1BE87C5C00244B14 /* UdacityClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0310F6FD1BE87C5C00244B14 /* UdacityClient.swift */; };
+		031BF5EA1C017B5500A6B0DB /* SharedViewFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031BF5E91C017B5500A6B0DB /* SharedViewFunctions.swift */; };
+		031BF5EC1C02C95B00A6B0DB /* StudentLocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031BF5EB1C02C95B00A6B0DB /* StudentLocationTableViewCell.swift */; };
+		031BF5EE1C02E55C00A6B0DB /* StyledTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031BF5ED1C02E55C00A6B0DB /* StyledTextField.swift */; };
 		032647231BE9B7320035132F /* RESTClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032647221BE9B7320035132F /* RESTClient.swift */; };
 		032647251BE9C9500035132F /* UdacityUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032647241BE9C9500035132F /* UdacityUser.swift */; };
 		032DF3C91BEAF26400ABCE1B /* ParseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032DF3C81BEAF26400ABCE1B /* ParseClient.swift */; };
@@ -32,6 +35,9 @@
 		0310F6F51BE868F700244B14 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		0310F6F91BE8793700244B14 /* InfoPostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoPostViewController.swift; sourceTree = "<group>"; };
 		0310F6FD1BE87C5C00244B14 /* UdacityClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UdacityClient.swift; sourceTree = "<group>"; };
+		031BF5E91C017B5500A6B0DB /* SharedViewFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharedViewFunctions.swift; sourceTree = "<group>"; };
+		031BF5EB1C02C95B00A6B0DB /* StudentLocationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentLocationTableViewCell.swift; sourceTree = "<group>"; };
+		031BF5ED1C02E55C00A6B0DB /* StyledTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyledTextField.swift; sourceTree = "<group>"; };
 		032647221BE9B7320035132F /* RESTClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RESTClient.swift; sourceTree = "<group>"; };
 		032647241BE9C9500035132F /* UdacityUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UdacityUser.swift; sourceTree = "<group>"; };
 		032DF3C81BEAF26400ABCE1B /* ParseClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseClient.swift; sourceTree = "<group>"; };
@@ -85,6 +91,9 @@
 				0310F6F51BE868F700244B14 /* LoginViewController.swift */,
 				0310F6F91BE8793700244B14 /* InfoPostViewController.swift */,
 				03CEBDA61BEB2C650025A50B /* NavigationController.swift */,
+				031BF5E91C017B5500A6B0DB /* SharedViewFunctions.swift */,
+				031BF5EB1C02C95B00A6B0DB /* StudentLocationTableViewCell.swift */,
+				031BF5ED1C02E55C00A6B0DB /* StyledTextField.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -203,11 +212,14 @@
 				03D89B251BE6E65500F520C4 /* TableViewController.swift in Sources */,
 				032647231BE9B7320035132F /* RESTClient.swift in Sources */,
 				0310F6FE1BE87C5C00244B14 /* UdacityClient.swift in Sources */,
+				031BF5EA1C017B5500A6B0DB /* SharedViewFunctions.swift in Sources */,
 				03D89B351BE6ED0E00F520C4 /* MapViewController.swift in Sources */,
 				03D89B231BE6E65500F520C4 /* AppDelegate.swift in Sources */,
 				03CEBDA51BEB27700025A50B /* SharedData.swift in Sources */,
+				031BF5EC1C02C95B00A6B0DB /* StudentLocationTableViewCell.swift in Sources */,
 				032647251BE9C9500035132F /* UdacityUser.swift in Sources */,
 				0310F6FA1BE8793700244B14 /* InfoPostViewController.swift in Sources */,
+				031BF5EE1C02E55C00A6B0DB /* StyledTextField.swift in Sources */,
 				032DF3CB1BEAF33500ABCE1B /* StudentInformation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

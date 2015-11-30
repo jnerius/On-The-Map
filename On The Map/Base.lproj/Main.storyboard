@@ -8,6 +8,7 @@
     <customFonts key="customFonts">
         <mutableArray key="Roboto-Medium.ttf">
             <string>Roboto-Medium</string>
+            <string>Roboto-Medium</string>
         </mutableArray>
         <mutableArray key="Roboto-Regular.ttf">
             <string>Roboto-Regular</string>
@@ -16,6 +17,7 @@
             <string>Roboto-Regular</string>
         </mutableArray>
         <mutableArray key="Roboto-Thin.ttf">
+            <string>Roboto-Thin</string>
             <string>Roboto-Thin</string>
             <string>Roboto-Thin</string>
         </mutableArray>
@@ -33,7 +35,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Username" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eZ6-la-WKH">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Username" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eZ6-la-WKH" customClass="StyledTextField" customModule="On_The_Map" customModuleProvider="target">
                                 <rect key="frame" x="163" y="187" width="275" height="44"/>
                                 <animations/>
                                 <color key="backgroundColor" red="0.99607843137254903" green="0.84549414333062634" blue="0.60545943867743179" alpha="1" colorSpace="calibratedRGB"/>
@@ -44,7 +46,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aOd-OT-zGf">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aOd-OT-zGf" customClass="StyledTextField" customModule="On_The_Map" customModuleProvider="target">
                                 <rect key="frame" x="163" y="246" width="275" height="44"/>
                                 <animations/>
                                 <color key="backgroundColor" red="1" green="0.84412184034609039" blue="0.59473788470890165" alpha="1" colorSpace="calibratedRGB"/>
@@ -53,7 +55,7 @@
                                     <constraint firstAttribute="width" constant="275" id="tpk-rH-YPi"/>
                                 </constraints>
                                 <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="udacity-logo" translatesAutoresizingMaskIntoConstraints="NO" id="Wo6-sc-5Ff">
@@ -64,10 +66,15 @@
                                     <constraint firstAttribute="height" constant="97" id="vU5-0P-ToL"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zhr-Fj-Rgt">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zhr-Fj-Rgt">
                                 <rect key="frame" x="163" y="307" width="275" height="44"/>
                                 <animations/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
+                                <color key="backgroundColor" cyan="0.0001370514219161123" magenta="0.34644471638954727" yellow="0.38167068362236023" black="0.065672189597315439" alpha="1" colorSpace="custom" customColorSpace="genericCMYKColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="1KA-Lr-YUg"/>
+                                    <constraint firstAttribute="width" constant="275" id="ex5-HG-IEG"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
                                 <state key="normal" title="Login"/>
                                 <connections>
                                     <action selector="loginTouch:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Gwi-yf-Xru"/>
@@ -88,6 +95,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="loginButton" destination="zhr-Fj-Rgt" id="1pD-9K-zkA"/>
                         <outlet property="passwordTextField" destination="aOd-OT-zGf" id="FBK-Tw-Fy3"/>
                         <outlet property="usernameTextField" destination="eZ6-la-WKH" id="Bic-nb-lez"/>
                     </connections>
@@ -108,20 +116,49 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="X93-1a-vPy">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="56" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="X93-1a-vPy">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MapAnnotationCell" id="OW5-e1-Fxp">
-                                        <rect key="frame" x="0.0" y="92" width="600" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="StudentInformationCell" rowHeight="56" id="OW5-e1-Fxp" customClass="StudentLocationTableViewCell" customModule="On_The_Map" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="92" width="600" height="56"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OW5-e1-Fxp" id="wti-Sa-0Jy">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="55"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="pin-icon" translatesAutoresizingMaskIntoConstraints="NO" id="hY5-pd-2gt">
+                                                    <rect key="frame" x="8" y="7" width="35" height="41"/>
+                                                    <animations/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t91-rg-flO">
+                                                    <rect key="frame" x="49" y="5" width="534" height="21"/>
+                                                    <animations/>
+                                                    <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="15"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="joA-sn-aUF">
+                                                    <rect key="frame" x="49" y="29" width="534" height="21"/>
+                                                    <animations/>
+                                                    <fontDescription key="fontDescription" name="Roboto-Thin" family="Roboto" pointSize="14"/>
+                                                    <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
                                             <animations/>
+                                            <constraints>
+                                                <constraint firstItem="hY5-pd-2gt" firstAttribute="top" secondItem="wti-Sa-0Jy" secondAttribute="topMargin" constant="-1" id="61R-fm-QTY"/>
+                                                <constraint firstItem="hY5-pd-2gt" firstAttribute="leading" secondItem="wti-Sa-0Jy" secondAttribute="leadingMargin" id="DQm-7a-RKf"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="hY5-pd-2gt" secondAttribute="bottom" constant="-1" id="FwM-Mx-YpQ"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <animations/>
+                                        <connections>
+                                            <outlet property="studentNameLabel" destination="t91-rg-flO" id="1wo-uu-Q4n"/>
+                                            <outlet property="studentUrlLabel" destination="joA-sn-aUF" id="Sf8-p0-I4S"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -140,7 +177,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="On The Map" id="4cx-Pw-n0A">
-                        <barButtonItem key="leftBarButtonItem" title="Logout" id="PSu-NE-9T7"/>
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="PSu-NE-9T7">
+                            <connections>
+                                <action selector="logoutTouch:" destination="EKE-jK-kLY" id="HK5-5R-jfk"/>
+                            </connections>
+                        </barButtonItem>
                         <rightBarButtonItems>
                             <barButtonItem systemItem="refresh" id="VVq-sQ-NTU">
                                 <connections>
@@ -210,7 +251,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="On The Map" id="kQv-cb-C1l">
-                        <barButtonItem key="leftBarButtonItem" title="Logout" id="4NI-44-1Mo"/>
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="4NI-44-1Mo">
+                            <connections>
+                                <action selector="logoutTouch:" destination="D6Q-Ub-XHt" id="ZtA-mu-Xrl"/>
+                            </connections>
+                        </barButtonItem>
                         <rightBarButtonItems>
                             <barButtonItem systemItem="refresh" id="0Vc-Y0-2pt">
                                 <connections>
@@ -219,7 +264,6 @@
                             </barButtonItem>
                             <barButtonItem image="pin-icon" id="2Xi-ce-eti">
                                 <connections>
-                                    <action selector="pinButtonPressed:" destination="D6Q-Ub-XHt" id="AQE-kG-alt"/>
                                     <segue destination="0LE-w6-fPc" kind="presentation" id="E8B-W2-bXd"/>
                                 </connections>
                             </barButtonItem>

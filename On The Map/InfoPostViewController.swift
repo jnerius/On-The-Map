@@ -18,8 +18,6 @@ class InfoPostViewController : UIViewController {
     let PLACEHOLDER_URL_TEXT = "Enter a Link to Share Here"
     let PLACEHOLDER_LOC_TEXT = "Enter Your Location Here"
     
-    let parseClient = ParseClient.sharedInstance()
-    
     @IBOutlet weak var locationTextField: UITextField!
     @IBOutlet weak var urlTextField: UITextField!
     @IBOutlet weak var enterLocationView: UIView!
@@ -32,6 +30,7 @@ class InfoPostViewController : UIViewController {
     @IBOutlet weak var submitContainer: UIView!
     
     var defaultColor: UIColor?
+    let parseClient = ParseClient.sharedInstance()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,10 +79,8 @@ class InfoPostViewController : UIViewController {
         CLGeocoder().geocodeAddressString(locationString) { (placemarks, error) -> Void in
             if let placemarks = placemarks {
                 for p in placemarks {
-                    print(p)
                     if let loc = p.location {
-                        print(loc)
-                        SharedData.currentStudent.latitude = loc.coordinate.latitude
+                        SharedData.currentStudent.latitude  = loc.coordinate.latitude
                         SharedData.currentStudent.longitude = loc.coordinate.longitude
                         SharedData.currentStudent.mapString = loc.description
                         
@@ -92,6 +89,7 @@ class InfoPostViewController : UIViewController {
                         annotation.title = loc.description
                         self.mapView.addAnnotation(annotation)
                         
+                        // Zoom in to the annotation we just added
                         var region = MKCoordinateRegion()
                         region.center = loc.coordinate
                         region.span.latitudeDelta = 0.2
@@ -110,7 +108,6 @@ class InfoPostViewController : UIViewController {
     }
     
     @IBAction func submitTouch(sender: AnyObject) {
-        print("submitTouch")
         if let url = self.urlTextField.text  {
             if url != PLACEHOLDER_URL_TEXT {
                 SharedData.currentStudent.mediaURL = url
@@ -142,14 +139,6 @@ class InfoPostViewController : UIViewController {
             self.view.backgroundColor = self.enterLinkSubview.backgroundColor
             self.cancelButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         }
-    }
-    
-    func showMessage(message: String) {
-        dispatch_async(dispatch_get_main_queue(), {
-            let alert = UIAlertController(title: nil, message: message, preferredStyle: .Alert)
-            alert.addAction(UIAlertAction(title: "Dismiss", style: .Cancel, handler: nil))
-            self.showViewController(alert, sender: self)
-        })
     }
 }
 

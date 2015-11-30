@@ -13,14 +13,9 @@ class LoginViewController: UIViewController {
     
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var loginButton: UIButton!
     
     @IBAction func loginTouch(sender: UIButton) {
-        print("loginTouch")
-        
-        // FIXME - shortcut the login process for now
-        self.usernameTextField.text = "a"
-        self.passwordTextField.text = "b"
-        
         if (usernameTextField.text != "" && passwordTextField.text != "") {
             self.doLogin(self.usernameTextField.text!, password: self.passwordTextField.text!)
         } else {
@@ -32,9 +27,17 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         
         // FIXME - shortcut the login process
-        dispatch_async(dispatch_get_main_queue(), {
-            self.doLogin("", password: "")
-        })
+        //dispatch_async(dispatch_get_main_queue(), {
+        //    self.doLogin("", password: "")
+        //})
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // Clear out the username/password fields
+        self.usernameTextField.text = ""
+        self.passwordTextField.text = ""
     }
     
     override func didReceiveMemoryWarning() {
@@ -42,56 +45,37 @@ class LoginViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func initializeUI() {
-        
-    }
-    
-    func styleUsernameField() {
-        
-    }
-    
-    func stylePasswordField() {
-        
-    }
-    
-    func showError(message: String) {
-        dispatch_async(dispatch_get_main_queue(), {
-            print("showError: encountered error \(message)")
-            let alert = UIAlertController(title: "Error", message: message, preferredStyle: .Alert)
-            alert.addAction(UIAlertAction(title: "Dismiss", style: .Cancel, handler: nil))
-            self.showViewController(alert, sender: self)
-        })
-    }
-    
     func doLogin(username: String, password: String) {
         // FIXME - shortcut the login process for now
-        let controller = self.storyboard!.instantiateViewControllerWithIdentifier("OnTheMapTabBarController") as! UITabBarController
-        self.presentViewController(controller, animated: true, completion: nil)
-        SharedData.currentStudent.firstName = "Josh"
-        SharedData.currentStudent.lastName = "Nerius"
-        SharedData.currentStudent.uniqueKey = "u998045"
+        //let controller = self.storyboard!.instantiateViewControllerWithIdentifier("OnTheMapTabBarController") as! UITabBarController
+        //self.presentViewController(controller, animated: true, completion: nil)
         
-        /*
+        
+        //SharedData.currentStudent.firstName = "Josh"
+        //SharedData.currentStudent.lastName = "Nerius"
+        //SharedData.currentStudent.uniqueKey = "u998045"
+        
+        
         udacityClient.authenticate(username, password: password) { (result, error) -> Void in
             
             if let result = result {
                 if let account = result["account"] as? [String:AnyObject] {
                     if let key = account["key"] as? String {
                         self.udacityClient.getUserData(key, completionHandler: { (userData, error) -> Void in
-                            print(userData)
+                            print("User data: \(userData)")
+                            
+                            SharedData.loggedInUser = userData
+                            
+                            dispatch_async(dispatch_get_main_queue(), {
+                                let controller = self.storyboard!.instantiateViewControllerWithIdentifier("OnTheMapTabBarController") as! UITabBarController
+                                self.presentViewController(controller, animated: true, completion: nil)
+                            })
                         })
                     }
-                    
-                    dispatch_async(dispatch_get_main_queue(), {
-                        print("in async block")
-                        let controller = self.storyboard!.instantiateViewControllerWithIdentifier("OnTheMapTabBarController") as! UITabBarController
-                        self.presentViewController(controller, animated: true, completion: nil)
-                    })
                 }
             } else {
                 self.showError("Invalid Email or Password")
             }
         }
-        */
     }
 }

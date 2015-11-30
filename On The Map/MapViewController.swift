@@ -19,13 +19,14 @@ class MapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Set up the overlay / loading view
         self.configureOverlayLoadingView()
-        self.loadStudentLocations()
     }
     
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
         
+        // Every time the view appears, reload student locations
         reloadStudentLocations()
     }
     
@@ -33,14 +34,29 @@ class MapViewController: UIViewController {
         reloadStudentLocations()
     }
     
+    @IBAction func logoutTouch(sender: AnyObject) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     func loadStudentLocations() {
+        // Enable the loading overlay before we start loading students
         self.enableLoadingOverlay()
+        
+        // Call into Parse Client
         ParseClient.sharedInstance().getStudentLocations(nil, skip: nil, order: nil) { (studentLocations, error) -> Void in
-            if let locations = studentLocations {
-                SharedData.studentLocations = locations
-                
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.addMapAnnotationsFromUserLocations(locations)
+            if error == nil {
+                if let locations = studentLocations {
+                    // Store the locations for later use
+                    SharedData.studentLocations = locations
+                    
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.addMapAnnotationsFromUserLocations(locations)
+                        self.disableLoadingOverlay()
+                    })
+                }
+            } else {
+                self.showError("Error loading student locations")
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
                     self.disableLoadingOverlay()
                 })
             }
@@ -48,8 +64,11 @@ class MapViewController: UIViewController {
     }
     
     func reloadStudentLocations() {
+        // First, remove all current annotations from the map
         self.mapView.removeAnnotations(self.mapView.annotations)
-        loadStudentLocations()
+        
+        // Now, load the locations
+        self.loadStudentLocations()
     }
     
     func configureOverlayLoadingView() {
@@ -68,31 +87,32 @@ class MapViewController: UIViewController {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     func addMapAnnotationsFromUserLocations(userLocations: [StudentInformation]) {
         var annotations = [MKPointAnnotation]()
         
+        // Loop through the student locations, and set up an annotation for each
         for location in userLocations {
-            let lat = CLLocationDegrees(location.latitude)
-            let lon = CLLocationDegrees(location.longitude)
-            let coord = CLLocationCoordinate2D(latitude: lat, longitude: lon)
-            let annotation = MKPointAnnotation()
-            annotation.coordinate = coord
-            annotation.title = "\(location.firstName) \(location.lastName)"
-            annotation.subtitle = location.mediaURL
-            
+            let annotation = self.annotationFromUserLocation(location)
             annotations.append(annotation)
         }
         
         mapView.addAnnotations(annotations)
     }
     
-    @IBAction func pinButtonPressed(sender: UIBarButtonItem) {
-        print("Pin thingy pressed")
+    // Convert a Student Location to an Annotation
+    func annotationFromUserLocation(location: StudentInformation) -> MKPointAnnotation {
+        let lat = CLLocationDegrees(location.latitude)
+        let lon = CLLocationDegrees(location.longitude)
+        let coord = CLLocationCoordinate2D(latitude: lat, longitude: lon)
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = coord
+        annotation.title = "\(location.firstName) \(location.lastName)"
+        annotation.subtitle = location.mediaURL
+        
+        return annotation
     }
-    
 }
 
 extension MapViewController: MKMapViewDelegate {
@@ -120,7 +140,15 @@ extension MapViewController: MKMapViewDelegate {
         if control == view.rightCalloutAccessoryView {
             let app = UIApplication.sharedApplication()
             if let toOpen = view.annotation?.subtitle! {
-                app.openURL(NSURL(string: toOpen)!)
+                if let url = NSURL(string: toOpen) {
+                    if self.urlIsValid(url) {
+                        app.openURL(url)
+                    } else {
+                        showError("Invalid URL")
+                    }
+                } else {
+                    showError("Invalid URL")
+                }
             }
         }
     }
@@ -132,5 +160,9 @@ extension MapViewController: MKMapViewDelegate {
     func mapViewDidFinishRenderingMap(mapView: MKMapView, fullyRendered: Bool) {
         self.mapRenderingInProgress = false
         self.disableLoadingOverlay()
+    }
+    
+    func urlIsValid(url: NSURL) -> Bool {
+        return UIApplication.sharedApplication().canOpenURL(url)
     }
 }

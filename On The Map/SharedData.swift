@@ -11,6 +11,7 @@ import MapKit
 
 class SharedData {
     static var currentStudent   = StudentInformation()
+    static var loggedInUser     = UdacityUser()
     static var studentLocations = [StudentInformation]()
     
     static func studentLocations(refresh: Bool) -> [StudentInformation] {
@@ -21,8 +22,6 @@ class SharedData {
                     self.studentLocations = locations
                 }
             }
-        } else {
-            print("SharedData.studentLocations: using cached data...")
         }
         
         return self.studentLocations

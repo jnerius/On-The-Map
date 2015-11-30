@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Constants {
+struct UdacityConstants {
     static let BaseURL = "https://www.udacity.com/api/";
 }
 
@@ -23,9 +23,7 @@ class UdacityClient : NSObject {
             ]
         ]
         
-        restClient.doPOST(Constants.BaseURL, method: "session", parameters: [String:AnyObject](), jsonBody: authBody, headers: nil) { (result, error) -> Void in
-            print(result)
-            
+        restClient.doPOST(UdacityConstants.BaseURL, method: "session", parameters: [String:AnyObject](), jsonBody: authBody, headers: nil) { (result, error) -> Void in
             if let error = error {
                 completionHandler(result: nil, error: error)
             } else {
@@ -35,7 +33,7 @@ class UdacityClient : NSObject {
     }
     
     func getUserData(userId: String, completionHandler: (result: UdacityUser!, error: NSError?) -> Void) {
-        restClient.doGET(Constants.BaseURL, method: "users/\(userId)", parameters: nil, headers: nil) { (result, error) -> Void in
+        restClient.doGET(UdacityConstants.BaseURL, method: "users/\(userId)", parameters: nil, headers: nil) { (result, error) -> Void in
             let user = UdacityUser(dictionary: result as! [String : AnyObject])
             completionHandler(result: user, error: nil)
         }

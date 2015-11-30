@@ -36,8 +36,13 @@ class TableViewController: UIViewController {
     }
 
     @IBAction func refreshTouch(sender: AnyObject) {
+        SharedData.studentLocations(true)
+        self.tableView.reloadData()
     }
 
+    @IBAction func logoutTouch(sender: AnyObject) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
 }
 
 extension TableViewController: UITableViewDataSource {
@@ -47,8 +52,10 @@ extension TableViewController: UITableViewDataSource {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let location = SharedData.studentLocations(false)[indexPath.row]
-        let cell = tableView.dequeueReusableCellWithIdentifier("MapAnnotationCell")
-        cell?.textLabel?.text = "\(location.firstName) \(location.lastName)"
+        let cell = tableView.dequeueReusableCellWithIdentifier("StudentInformationCell") as? StudentLocationTableViewCell
+
+        cell?.studentNameLabel.text = "\(location.firstName) \(location.lastName)"
+        cell?.studentUrlLabel.text = location.mediaURL
         
         if let cell = cell {
             return cell
