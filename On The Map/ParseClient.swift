@@ -23,16 +23,14 @@ class ParseClient : NSObject {
         "X-Parse-REST-API-Key":   ParseConstants.ParseRestApiKey
     ]
     
+    let params = ["limit": 100, "order": "-updatedAt"]
+    
     func getStudentLocations(limit: Int?, skip: Int?, order: String?, completionHandler: (result: [StudentInformation]?, error: NSError?) -> Void) {
-        restClient.doGET(ParseConstants.BaseURL, method: ParseConstants.MethodStudentLocation, parameters: nil, headers: headers) { (result, error) -> Void in
+        restClient.doGET(ParseConstants.BaseURL, method: ParseConstants.MethodStudentLocation, parameters: params, headers: headers) { (result, error) -> Void in
             if let result = result {
                 if let results = result["results"] as? [[String:AnyObject]] {
                     let userLocations = StudentInformation.userLocationsFromResults(results)
-                    let sortedUserLocations = userLocations.sort {
-                        return $0.updatedAt.compare($1.updatedAt) == .OrderedDescending
-                    }
-                    
-                    completionHandler(result: sortedUserLocations, error: nil)
+                    completionHandler(result: userLocations, error: nil)
                 } else {
                     print("in getStudentLocations, didn't go so well")
                     completionHandler(result: nil, error: error)
