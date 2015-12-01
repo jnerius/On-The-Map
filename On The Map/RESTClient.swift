@@ -84,6 +84,9 @@ class RESTClient : NSObject {
 
         let url = NSURL(string: urlString + method)!
         let request = NSMutableURLRequest(URL: url)
+        
+        // Per submission 1 feedback, lowering timeout to 15 seconds
+        request.timeoutInterval = 15
         request.HTTPMethod = "GET"
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")

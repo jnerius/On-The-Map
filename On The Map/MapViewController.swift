@@ -55,7 +55,7 @@ class MapViewController: UIViewController {
                     })
                 }
             } else {
-                self.showError("Error loading student locations")
+                self.showError((error?.localizedDescription)!)
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                     self.disableLoadingOverlay()
                 })
