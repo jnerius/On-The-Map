@@ -80,12 +80,18 @@
                                     <action selector="loginTouch:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Gwi-yf-Xru"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="sfN-ld-Af2">
+                                <rect key="frame" x="290" y="377" width="20" height="20"/>
+                                <animations/>
+                            </activityIndicatorView>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" red="0.77453926282051277" green="0.38958238314227128" blue="0.0021992881463366682" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="aOd-OT-zGf" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="3Lf-6b-6y0"/>
+                            <constraint firstItem="sfN-ld-Af2" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Apw-it-XH9"/>
                             <constraint firstItem="Wo6-sc-5Ff" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="13" id="Bd7-Cz-ON0"/>
+                            <constraint firstItem="sfN-ld-Af2" firstAttribute="top" secondItem="zhr-Fj-Rgt" secondAttribute="bottom" constant="26" id="Cde-8s-aeP"/>
                             <constraint firstItem="aOd-OT-zGf" firstAttribute="top" secondItem="eZ6-la-WKH" secondAttribute="bottom" constant="15" id="Oeq-FO-Z77"/>
                             <constraint firstItem="zhr-Fj-Rgt" firstAttribute="top" secondItem="aOd-OT-zGf" secondAttribute="bottom" constant="17" id="WUb-SD-vyB"/>
                             <constraint firstItem="eZ6-la-WKH" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="bLy-dY-UGY"/>
@@ -95,6 +101,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activitySpinner" destination="sfN-ld-Af2" id="vh6-88-wN8"/>
                         <outlet property="loginButton" destination="zhr-Fj-Rgt" id="1pD-9K-zkA"/>
                         <outlet property="passwordTextField" destination="aOd-OT-zGf" id="FBK-Tw-Fy3"/>
                         <outlet property="usernameTextField" destination="eZ6-la-WKH" id="Bic-nb-lez"/>

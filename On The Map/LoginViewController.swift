@@ -11,6 +11,7 @@ import UIKit
 class LoginViewController: UIViewController {
     let udacityClient = UdacityClient()
     
+    @IBOutlet weak var activitySpinner: UIActivityIndicatorView!
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginButton: UIButton!
@@ -40,11 +41,49 @@ class LoginViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func loginDidBegin() {
+        self.disableInput()
+        self.enableSpinner()
+    }
+    
+    func loginDidEnd() {
+        dispatch_async(dispatch_get_main_queue()) {
+            self.enableInput()
+            self.disableSpinner()
+        }
+    }
+    
+    func enableSpinner() {
+        self.activitySpinner.startAnimating()
+    }
+    
+    func disableSpinner() {
+        self.activitySpinner.stopAnimating()
+    }
+    
+    func disableInput() {
+        self.usernameTextField.enabled = false
+        self.passwordTextField.enabled = false
+        self.loginButton.enabled = false
+    }
+    
+    func enableInput() {
+        self.usernameTextField.enabled = true
+        self.passwordTextField.enabled = true
+        self.loginButton.enabled = true
+    }
+    
     func doLogin(username: String, password: String) {
+        
+        self.loginDidBegin()
         
         udacityClient.authenticate(username, password: password) { (result, error) -> Void in
             
-            if let result = result {
+            if let error = error {
+                // Per submission 1 review, properly handling authentication errors
+                self.showError(error.localizedDescription)
+                self.loginDidEnd()
+            } else if let result = result {
                 if let account = result["account"] as? [String:AnyObject] {
                     if let key = account["key"] as? String {
                         self.udacityClient.getUserData(key, completionHandler: { (userData, error) -> Void in
@@ -53,6 +92,7 @@ class LoginViewController: UIViewController {
                             SharedData.loggedInUser = userData
                             
                             dispatch_async(dispatch_get_main_queue(), {
+                                self.loginDidEnd()
                                 let controller = self.storyboard!.instantiateViewControllerWithIdentifier("OnTheMapTabBarController") as! UITabBarController
                                 self.presentViewController(controller, animated: true, completion: nil)
                             })
@@ -60,6 +100,7 @@ class LoginViewController: UIViewController {
                     }
                 }
             } else {
+                self.loginDidEnd()
                 self.showError("Invalid Email or Password")
             }
         }

@@ -39,6 +39,9 @@ class RESTClient : NSObject {
         let task = session.dataTaskWithRequest(request) { (data, response, error) in
             guard (error == nil) else {
                 print("There was an error with your request: \(error)")
+                
+                // Per submission 1 review, adding missing callback to completion handler
+                completionHandler(result: nil, error: error)
                 return
             }
             
@@ -97,6 +100,9 @@ class RESTClient : NSObject {
             // Error in callback?
             guard (error == nil) else {
                 print("There was an error with your request: \(error)")
+                
+                // Per submission 1 review, adding missing callback to completion handler
+                completionHandler(result: nil, error: error)
                 return
             }
             
