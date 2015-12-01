@@ -18,6 +18,7 @@ class InfoPostViewController : UIViewController {
     let PLACEHOLDER_URL_TEXT = "Enter a Link to Share Here"
     let PLACEHOLDER_LOC_TEXT = "Enter Your Location Here"
     
+    @IBOutlet weak var activitySpinner: UIActivityIndicatorView!
     @IBOutlet weak var locationTextField: UITextField!
     @IBOutlet weak var urlTextField: UITextField!
     @IBOutlet weak var enterLocationView: UIView!
@@ -76,6 +77,9 @@ class InfoPostViewController : UIViewController {
     @IBAction func findTouch(sender: AnyObject) {
         let locationString = self.locationTextField.text!
         
+        // Start the activity spinner
+        self.activitySpinner.startAnimating()
+        
         CLGeocoder().geocodeAddressString(locationString) { (placemarks, error) -> Void in
             if let placemarks = placemarks {
                 for p in placemarks {
@@ -95,6 +99,7 @@ class InfoPostViewController : UIViewController {
                         region.span.latitudeDelta = 0.2
                         region.span.longitudeDelta = 0.2
                         
+                        self.activitySpinner.stopAnimating()
                         self.mapView.setRegion(region, animated: true)
                         
                         self.setUIState(.EnterURL)
@@ -102,6 +107,7 @@ class InfoPostViewController : UIViewController {
                 }
             } else {
                 print("COULD NOT FIND LOCATION")
+                self.activitySpinner.stopAnimating()
                 self.showMessage("Could not find location")
             }
         }

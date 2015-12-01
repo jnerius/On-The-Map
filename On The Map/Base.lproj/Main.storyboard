@@ -350,10 +350,16 @@
                                                 <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="20"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
+                                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="EkA-OB-ydF">
+                                                <rect key="frame" x="290" y="118" width="20" height="20"/>
+                                                <animations/>
+                                            </activityIndicatorView>
                                         </subviews>
                                         <animations/>
                                         <color key="backgroundColor" red="0.0" green="0.25098040700000002" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
+                                            <constraint firstItem="EkA-OB-ydF" firstAttribute="centerX" secondItem="MVh-gQ-0FD" secondAttribute="centerX" id="01r-2D-a8m"/>
+                                            <constraint firstItem="EkA-OB-ydF" firstAttribute="centerY" secondItem="MVh-gQ-0FD" secondAttribute="centerY" id="DRE-0d-UxQ"/>
                                             <constraint firstItem="9O5-OL-ItO" firstAttribute="top" secondItem="MVh-gQ-0FD" secondAttribute="top" constant="13" id="MIa-Fw-UVD"/>
                                             <constraint firstItem="9O5-OL-ItO" firstAttribute="leading" secondItem="MVh-gQ-0FD" secondAttribute="leading" constant="8" id="Q0D-Cb-IE3"/>
                                             <constraint firstAttribute="trailing" secondItem="9O5-OL-ItO" secondAttribute="trailing" constant="8" id="ZHV-FR-sqU"/>
@@ -502,6 +508,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activitySpinner" destination="EkA-OB-ydF" id="QgK-6B-HNU"/>
                         <outlet property="cancelButton" destination="1vy-P9-49a" id="ceD-3Y-eY3"/>
                         <outlet property="enterLinkSubview" destination="fAq-Ze-krw" id="Wmu-zX-EEO"/>
                         <outlet property="enterLocationView" destination="FyF-Si-G6w" id="IPJ-hr-IgB"/>
