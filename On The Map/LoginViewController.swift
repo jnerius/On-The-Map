@@ -90,6 +90,9 @@ class LoginViewController: UIViewController {
                             print("User data: \(userData)")
                             
                             SharedData.loggedInUser = userData
+                            SharedData.currentStudent.firstName = userData.firstName
+                            SharedData.currentStudent.lastName  = userData.lastName
+                            SharedData.currentStudent.uniqueKey = userData.userId
                             
                             dispatch_async(dispatch_get_main_queue(), {
                                 self.loginDidEnd()

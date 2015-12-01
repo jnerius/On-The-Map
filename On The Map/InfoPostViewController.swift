@@ -124,6 +124,7 @@ class InfoPostViewController : UIViewController {
                         self.dismissViewControllerAnimated(true, completion: nil)
                     } else {
                         self.showMessage("Error while attempting to create Student Location")
+                        print(error?.localizedDescription)
                     }
                 })
             } else {
