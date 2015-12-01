@@ -413,6 +413,9 @@
                                                 <color key="textColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="20"/>
                                                 <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="0LE-w6-fPc" id="VuF-2x-N5J"/>
+                                                </connections>
                                             </textField>
                                         </subviews>
                                         <animations/>
