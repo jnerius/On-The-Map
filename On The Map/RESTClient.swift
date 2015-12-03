@@ -47,16 +47,25 @@ class RESTClient : NSObject {
             
             // Handle error codes
             guard let statusCode = (response as? NSHTTPURLResponse)?.statusCode where statusCode >= 200 && statusCode <= 299 else {
+                var friendlyError = ""
                 
                 if let response = response as? NSHTTPURLResponse {
                     print("Your request (\(request.URL)) returned an invalid response! Status code: \(response.statusCode)!")
+                    if (response.statusCode == 401 || response.statusCode == 403) {
+                        friendlyError = "Authentication Error"
+                    }
                 } else if let response = response {
                     print("Your request (\(request.URL)) returned an invalid response! Response: \(response)!")
                 } else {
                     print("Your request (\(request.URL)) returned an invalid response!")
                 }
                 
-                let userInfo = [NSLocalizedDescriptionKey : "Error doing POST: '\(request)'"]
+                if friendlyError == "" {
+                    friendlyError = "Error Connecting to Service"
+                }
+                
+                let userInfo = [NSLocalizedDescriptionKey: friendlyError]
+                
                 completionHandler(result: nil, error: NSError(domain: "doPOST", code: 1, userInfo: userInfo))
                 
                 return

@@ -81,8 +81,8 @@ class LoginViewController: UIViewController {
             
             if let error = error {
                 // Per submission 1 review, properly handling authentication errors
-                self.showError(error.localizedDescription)
                 self.loginDidEnd()
+                self.showError(error.localizedDescription)
             } else if let result = result {
                 if let account = result["account"] as? [String:AnyObject] {
                     if let key = account["key"] as? String {
@@ -104,7 +104,7 @@ class LoginViewController: UIViewController {
                 }
             } else {
                 self.loginDidEnd()
-                self.showError("Invalid Email or Password")
+                self.showError((error?.localizedDescription)!)
             }
         }
     }
