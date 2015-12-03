@@ -36,8 +36,20 @@ class TableViewController: UIViewController {
     }
 
     @IBAction func refreshTouch(sender: AnyObject) {
-        SharedData.studentLocations(true)
-        self.tableView.reloadData()
+        ParseClient.sharedInstance().getStudentLocations(nil, skip: nil, order: nil) { (studentLocations, error) -> Void in
+            if let error = error {
+                self.showError(error.localizedDescription)
+            } else {
+                if let locations = studentLocations {
+                    // Store the locations for later use
+                    SharedData.studentLocations = locations
+                
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.tableView.reloadData()
+                    })
+                }
+            }
+        }
     }
 
     @IBAction func logoutTouch(sender: AnyObject) {
